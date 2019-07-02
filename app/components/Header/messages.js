@@ -16,4 +16,8 @@ export default defineMessages({
     id: `${scope}.features`,
     defaultMessage: 'Features',
   },
+  numbersGame: {
+    id: `${scope}.numbersGame`,
+    defaultMessage: 'Numbers Game',
+  },
 });

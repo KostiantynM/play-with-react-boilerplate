@@ -15,7 +15,13 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
+import {
+  LOAD_REPOS,
+  LOAD_REPOS_SUCCESS,
+  LOAD_REPOS_ERROR,
+  RESTART_GAME_NUMBERS,
+  GAME_NUMBERS_ERROR,
+} from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -54,6 +60,19 @@ export function reposLoaded(repos, username) {
 export function repoLoadingError(error) {
   return {
     type: LOAD_REPOS_ERROR,
+    error,
+  };
+}
+
+export function resetGame() {
+  return {
+    type: RESTART_GAME_NUMBERS,
+  };
+}
+
+export function gameNumbersError(error) {
+  return {
+    type: GAME_NUMBERS_ERROR,
     error,
   };
 }
