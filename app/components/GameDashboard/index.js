@@ -5,7 +5,17 @@ import FieldGrid from 'components/FieldGrid';
 import FieldItem from 'components/FieldItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-function GameField({ loading, error, numbers }) {
+function ScoreComponent(score) {
+  return (
+    <div>
+      {score.map(i => (
+        <div key={`item-${i.id}`}>{`${i.user} - ${i.score}`}</div>
+      ))}
+    </div>
+  );
+}
+
+function GameField({ loading, error, numbers, score }) {
   if (loading) {
     return <FieldGrid component={LoadingIndicator} />;
   }
@@ -17,17 +27,20 @@ function GameField({ loading, error, numbers }) {
     return <FieldGrid component={ErrorComponent} />;
   }
 
-  if (numbers !== null) {
+  if (numbers != null) {
     return <FieldGrid items={numbers} component={FieldItem} />;
   }
 
-  return null;
+  return score.length > 0 ? (
+    <FieldGrid score={score} component={ScoreComponent} />
+  ) : null;
 }
 
 GameField.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   numbers: PropTypes.any,
+  score: PropTypes.any,
 };
 
 export default GameField;

@@ -12,5 +12,10 @@
 export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
 export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
-export const RESTART_GAME_NUMBERS = 'boilerplate/App/RESTART_GAME_NUMBERS';
-export const GAME_NUMBERS_ERROR = 'boilerplate/App/GAME_NUMBERS_ERROR';
+
+export const LOAD_SCORE_GAME_NUMBERS = 'boilerplate/App/LOAD_SCORE_GAME_NUMBERS';
+export const LOAD_SCORE_NUMBERS_SUCCESS = 'boilerplate/App/LOAD_SCORE_NUMBERS_SUCCESS';
+export const LOAD_SCORE_NUMBERS_ERROR = 'boilerplate/App/LOAD_SCORE_NUMBERS_ERROR';
+export const RESET_SCORE_GAME_NUMBERS = 'boilerplate/App/RESET_SCORE_GAME_NUMBERS';
+export const RESET_SCORE_GAME_NUMBERS_SUCCESS = '/RESET_SCORE_GAME_NUMBERS_SUCCESS';
+export const RESET_SCORE_GAME_NUMBERS_ERROR = '/RESET_SCORE_GAME_NUMBERS_ERROR';

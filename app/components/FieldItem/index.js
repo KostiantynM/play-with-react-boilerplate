@@ -8,7 +8,7 @@ function FieldItem(props) {
   const { v } = props.item;
   return (
     <Wrapper prsVal={props.prsVal}>
-      <Field>{`${v || ''}`}</Field>
+      <Field>{v}</Field>
     </Wrapper>
   );
 }

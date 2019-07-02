@@ -12,8 +12,12 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
-  RESTART_GAME_NUMBERS,
-  GAME_NUMBERS_ERROR,
+  LOAD_SCORE_GAME_NUMBERS,
+  LOAD_SCORE_NUMBERS_SUCCESS,
+  LOAD_SCORE_NUMBERS_ERROR,
+  RESET_SCORE_GAME_NUMBERS,
+  RESET_SCORE_GAME_NUMBERS_SUCCESS,
+  RESET_SCORE_GAME_NUMBERS_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -25,8 +29,7 @@ export const initialState = {
     repositories: false,
   },
   numbersGameData: {
-    score: 0,
-    numbers: null,
+    score: [],
   },
 };
 
@@ -51,14 +54,37 @@ const appReducer = (state = initialState, action) =>
         draft.loading = false;
         break;
 
-      case RESTART_GAME_NUMBERS:
-        draft.numbers = null;
-        draft.score = 0;
+      case LOAD_SCORE_GAME_NUMBERS:
+        draft.loading = true;
+        draft.error = false;
+        draft.numbersGameData.score = [];
         break;
 
-      case GAME_NUMBERS_ERROR:
-        draft.error = action.error;
+      case LOAD_SCORE_NUMBERS_SUCCESS:
         draft.loading = false;
+        draft.error = false;
+        draft.numbersGameData.score = action.payload.score;
+        break;
+
+      case LOAD_SCORE_NUMBERS_ERROR:
+        draft.loading = false;
+        draft.error = action.error;
+        break;
+
+      case RESET_SCORE_GAME_NUMBERS:
+        draft.loading = true;
+        draft.error = false;
+        break;
+
+      case RESET_SCORE_GAME_NUMBERS_SUCCESS:
+        draft.loading = false;
+        draft.error = false;
+        draft.numbersGameData.score = action.payload.score;
+        break;
+
+      case RESET_SCORE_GAME_NUMBERS_ERROR:
+        draft.loading = false;
+        draft.error = action.payload.error;
         break;
     }
   });

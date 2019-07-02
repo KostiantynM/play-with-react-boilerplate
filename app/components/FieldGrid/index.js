@@ -7,7 +7,8 @@ import Wrapper from './Wrapper';
 function FieldList(props) {
   const ComponentToRender = props.component; // FieldItem
   let content = <div />;
-  const size = Math.sqrt(props.items.length);
+  console.log(props);
+  const size = props.items ? Math.sqrt(props.items.length) : 1;
   const prsVal = 100 / (size + 1);
   // If we have items, render them
   if (props.items) {

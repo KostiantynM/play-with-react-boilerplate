@@ -19,8 +19,12 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
-  RESTART_GAME_NUMBERS,
-  GAME_NUMBERS_ERROR,
+  LOAD_SCORE_GAME_NUMBERS,
+  LOAD_SCORE_NUMBERS_SUCCESS,
+  LOAD_SCORE_NUMBERS_ERROR,
+  RESET_SCORE_GAME_NUMBERS,
+  RESET_SCORE_GAME_NUMBERS_SUCCESS,
+  RESET_SCORE_GAME_NUMBERS_ERROR
 } from './constants';
 
 /**
@@ -64,15 +68,51 @@ export function repoLoadingError(error) {
   };
 }
 
-export function resetGame() {
+export function loadScoreGameNumbers() {
   return {
-    type: RESTART_GAME_NUMBERS,
+    type: LOAD_SCORE_GAME_NUMBERS,
   };
 }
 
-export function gameNumbersError(error) {
+export function loadedScoreGameNumbers(score) {
   return {
-    type: GAME_NUMBERS_ERROR,
-    error,
+    type: LOAD_SCORE_NUMBERS_SUCCESS,
+    payload: {
+      score,
+    },
   };
 }
+
+export function loadingScoreGameNumbersError(error) {
+  return {
+    type: LOAD_SCORE_NUMBERS_ERROR,
+    payload: {
+      error,
+    },
+  };
+}
+
+export function resetScoreGameNumbers() {
+  return {
+    type: RESET_SCORE_GAME_NUMBERS,
+  };
+}
+
+export function resetedScoreGameNumbers() {
+  return {
+    type: RESET_SCORE_GAME_NUMBERS_SUCCESS,
+    payload: {
+      score: [],
+    },
+  };
+}
+
+export function resetingScoreGameNumbersError(error) {
+  return {
+    type: RESET_SCORE_GAME_NUMBERS_ERROR,
+    payload: {
+      error,
+    },
+  };
+}
+

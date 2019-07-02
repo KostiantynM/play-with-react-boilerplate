@@ -18,61 +18,39 @@ import { useInjectSaga } from 'utils/injectSaga';
 import Button from 'components/Button';
 import GameDashboard from 'components/GameDashboard';
 import {
-  makeSelectNumbers,
-  makeSelectScore,
+  makeSelectGameNumbersScore,
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { restart } from './actions';
+import { makeSelectGameNumbers } from './selectors';
+
+import { resetGameNumbers, startGameNumbers } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 const key = 'gameNumbers';
 
-export function NumbersGame({ loading, error, onResetClick, onStartClick }) {
+export function NumbersGame({
+  loading,
+  error,
+  score,
+  gameNumbers,
+  onResetClick,
+  onStartClick,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const generateCoord = function(size) {
-    let x = 0;
-    let y = 0;
-    // eslint-disable-next-line func-names
-    return function() {
-      // eslint-disable-next-line no-plusplus
-      const coords = { x, y };
-      x++;
-      if (x === size) {
-        x = 0;
-        y++;
-      }
-
-      if (y === size) {
-        x = 0;
-        y = 0;
-      }
-
-      return coords;
-    };
-  };
-
-  const size = 16;
-
-  const getCoord = generateCoord(Math.sqrt(size));
   const gameListProps = {
     loading,
     error,
-    numbers: [...Array(size)].map((j, i) => {
-      const { x, y } = getCoord();
-      const v = i + 1 === size ? null : i + 1;
-      return {
-        id: i + 1,
-        x,
-        y,
-        v,
-      };
-    }),
+    score,
+    numbers: gameNumbers.numbers,
+    startAt: gameNumbers.startAt,
   };
+
+  console.log('gameListProps', gameListProps);
 
   return (
     <article>
@@ -106,20 +84,23 @@ export function NumbersGame({ loading, error, onResetClick, onStartClick }) {
 NumbersGame.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  score: PropTypes.any,
   onResetClick: PropTypes.func,
   onStartClick: PropTypes.func,
+  gameNumbers: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
-  numbers: makeSelectNumbers(),
-  score: makeSelectScore(),
+  score: makeSelectGameNumbersScore(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  gameNumbers: makeSelectGameNumbers(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onResetClick: () => dispatch(restart()),
+    onResetClick: () => dispatch(resetGameNumbers()),
+    onStartClick: () => dispatch(startGameNumbers()),
   };
 }
 
